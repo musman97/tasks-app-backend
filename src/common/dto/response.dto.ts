@@ -1,29 +1,21 @@
-import type {
-  PaginatedResponse,
-  PaginatedResponseMeta,
-  Response,
-} from '../interfaces';
+import type { PaginatedResponseMeta } from '../interfaces';
 
-export class ResponseDto<D> implements Response<D> {
-  success: true;
+export class ResponseDto<D> {
   data?: D;
   message?: string;
 
   constructor(data?: D, message?: string) {
-    this.success = true;
     this.data = data;
     this.message = message;
   }
 }
 
-export class PaginatedResponseDto<D> implements PaginatedResponse<D> {
-  success: true;
+export class PaginatedResponseDto<D> {
   data: D;
   message?: string | undefined;
   meta: PaginatedResponseMeta;
 
   constructor(data: D, meta: PaginatedResponseMeta, message?: string) {
-    this.success = true;
     this.data = data;
     this.meta = meta;
     this.message = message;

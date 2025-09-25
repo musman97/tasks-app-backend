@@ -20,7 +20,7 @@ export class GlobalResponseTransformInterceptor<D>
     | Promise<Observable<Response<D> | PaginatedResponse<D>>> {
     return next.handle().pipe(
       map((responseData) => {
-        if (responseData.data) {
+        if (responseData.data || responseData.message) {
           return { success: true, ...responseData };
         }
 

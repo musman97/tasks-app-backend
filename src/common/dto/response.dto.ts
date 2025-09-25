@@ -1,6 +1,6 @@
 import type { PaginatedResponseMeta } from '../interfaces';
 
-export class ResponseDto<D> {
+export class ResponseDto<D = undefined> {
   data?: D;
   message?: string;
 

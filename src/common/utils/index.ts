@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
 
+export * from './pagination.util';
+
 export const safeParseNumber = (value: any, fallbackValue = -1) => {
   try {
     const parsedNumber = Number(value);

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PaginationInfo } from 'src/common';
 import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { CreateUserDto } from './dto';
@@ -26,6 +27,13 @@ export class UsersService {
 
   async findAll(): Promise<Users> {
     return this.userRepo.find();
+  }
+
+  async findAllPaginated({
+    limit,
+    skip,
+  }: PaginationInfo): Promise<[Users, number]> {
+    return this.userRepo.findAndCount({ skip, take: limit });
   }
 
   async findByEmail(email: string) {

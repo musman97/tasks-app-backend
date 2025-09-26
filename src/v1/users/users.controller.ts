@@ -1,24 +1,41 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { UsersRoutes } from './users.constants';
-import { UsersService } from './users.service';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import type { PromisfiedPaginatedResponseDto } from 'src/common';
+import { PaginationDto } from 'src/common';
 import {
+  createPaginationInfo,
+  createPaginationMeta,
   ResourceNotFoundException,
   ResponseDto,
   safeParseNumber,
 } from 'src/common';
-import type { PromisfiedResponseDto } from 'src/common';
-import { UserDtos } from './users.types';
 import { User } from '../entities';
 import { UserDto } from './dto';
+import { UsersRoutes } from './users.constants';
+import { UsersService } from './users.service';
+import { UserDtos } from './users.types';
 
 @Controller(UsersRoutes.base)
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get()
-  async findAll(): PromisfiedResponseDto<UserDtos> {
-    const allUsers = await this.userService.findAll();
-    return { data: UserDto.fromList(allUsers) };
+  async findAll(
+    @Query() pagination: PaginationDto,
+  ): PromisfiedPaginatedResponseDto<UserDtos> {
+    const [allUsers, totalItems] = await this.userService.findAllPaginated(
+      createPaginationInfo(pagination.page, pagination.limit),
+    );
+
+    return {
+      data: UserDto.fromList(allUsers),
+      meta: {
+        pagination: createPaginationMeta(
+          totalItems,
+          pagination.page,
+          pagination.limit,
+        ),
+      },
+    };
   }
 
   @Get(UsersRoutes.byId)

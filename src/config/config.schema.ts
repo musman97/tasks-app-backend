@@ -12,6 +12,8 @@ export const configSchema = z.object({
   DB_USER: z.string(),
   DB_PASSWORD: z.string(),
   DB_NAME: z.string(),
+  JWT_SECRET: z.string(),
+  JWT_REFRESH_SECRET: z.string(),
 });
 
 export type Config = z.infer<typeof configSchema>;

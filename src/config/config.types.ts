@@ -5,3 +5,8 @@ export interface DbConfig {
   password: string;
   dbName: string;
 }
+
+export interface JwtSecrets {
+  secret: string;
+  refreshSecret: string;
+}

@@ -9,4 +9,6 @@ export const ConfigKeys: Record<KeyOfConfig, KeyOfConfig> = {
   DB_PASSWORD: 'DB_PASSWORD',
   DB_PORT: 'DB_PORT',
   DB_USER: 'DB_USER',
+  JWT_SECRET: 'JWT_SECRET',
+  JWT_REFRESH_SECRET: 'JWT_REFRESH_SECRET',
 };

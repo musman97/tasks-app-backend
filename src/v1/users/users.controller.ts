@@ -6,16 +6,19 @@ import {
   ResponseDto,
   safeParseNumber,
 } from 'src/common';
-import { Users } from './users.types';
+import type { PromisfiedResponseDto } from 'src/common';
+import { UserDtos } from './users.types';
 import { User } from '../entities';
+import { UserDto } from './dto';
 
 @Controller(UsersRoutes.base)
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Get()
-  async findAll(): Promise<ResponseDto<Users>> {
-    return { data: await this.userService.findAll() };
+  async findAll(): PromisfiedResponseDto<UserDtos> {
+    const allUsers = await this.userService.findAll();
+    return { data: UserDto.fromList(allUsers) };
   }
 
   @Get(UsersRoutes.byId)

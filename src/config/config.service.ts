@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService as NConfigService } from '@nestjs/config';
-import { DbConfig } from './config.types';
+import { DbConfig, JwtSecrets } from './config.types';
 import { Config } from './config.schema';
 import { ConfigKeys } from './config.constants';
 
@@ -43,5 +43,16 @@ export class ConfigService {
 
   get port(): number {
     return this.nConfigService.getOrThrow<Config['PORT']>(ConfigKeys.PORT);
+  }
+
+  get jwtSecrets(): JwtSecrets {
+    return {
+      secret: this.nConfigService.getOrThrow<Config['JWT_SECRET']>(
+        ConfigKeys.JWT_SECRET,
+      ),
+      refreshSecret: this.nConfigService.getOrThrow<
+        Config['JWT_REFRESH_SECRET']
+      >(ConfigKeys.JWT_REFRESH_SECRET),
+    };
   }
 }

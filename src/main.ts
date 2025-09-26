@@ -1,4 +1,4 @@
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {
@@ -14,6 +14,8 @@ async function bootstrap() {
 
   app.useGlobalFilters(new GlobalExceptionFilter());
   app.useGlobalInterceptors(new GlobalResponseTransformInterceptor());
+
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   app.setGlobalPrefix(GLOBAL_API_PREFIX);
   app.enableVersioning({

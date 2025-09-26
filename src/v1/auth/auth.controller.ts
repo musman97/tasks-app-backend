@@ -1,10 +1,10 @@
 import { Controller, Post } from '@nestjs/common';
 import { ResponseDto } from 'src/common';
-import { AuthEndpoints } from './auth.constants';
+import { AuthRoutes } from './auth.constants';
 
-@Controller(AuthEndpoints.base)
+@Controller(AuthRoutes.base)
 export class AuthController {
-  @Post(AuthEndpoints.login)
+  @Post(AuthRoutes.login)
   login(): ResponseDto {
     return { message: 'Will implement later' };
   }

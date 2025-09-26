@@ -1,4 +1,4 @@
-export const AuthEndpoints = {
+export const AuthRoutes = {
   base: 'auth',
   login: 'login',
   register: 'register',

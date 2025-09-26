@@ -12,7 +12,7 @@ export interface PaginatedResponseMeta {
 export interface Response<D> {
   success: true;
   message?: string;
-  data?: D;
+  data?: D | null;
 }
 
 export interface ErrorResponse {

@@ -1,7 +1,7 @@
 import type { PaginatedResponseMeta } from '../interfaces';
 
 export class ResponseDto<D = undefined> {
-  data?: D;
+  data?: D | null;
   message?: string;
 
   constructor(data?: D, message?: string) {
@@ -11,7 +11,7 @@ export class ResponseDto<D = undefined> {
 }
 
 export class PaginatedResponseDto<D> {
-  data: D;
+  data: D | null;
   message?: string | undefined;
   meta: PaginatedResponseMeta;
 

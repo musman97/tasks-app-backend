@@ -1,9 +1,10 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { ConfigModule, ConfigService } from './config';
-import { ALL_ROUTES_CAPTURE_WILDCARD, LoggerMiddleWare } from './common';
-import { AuthModule } from './v1/auth';
-import { UsersModule } from './v1/users';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ALL_ROUTES_CAPTURE_WILDCARD, LoggerMiddleWare } from './common';
+import { ConfigModule, ConfigService } from './config';
+import { AuthModule, JwtGuard } from './v1/auth';
+import { UsersModule } from './v1/users';
 
 @Module({
   imports: [
@@ -29,7 +30,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     AuthModule,
     UsersModule,
   ],
-  providers: [ConfigService],
+  providers: [
+    ConfigService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

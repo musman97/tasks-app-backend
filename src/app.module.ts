@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ALL_ROUTES_CAPTURE_WILDCARD, LoggerMiddleWare } from './common';
 import { ConfigModule, ConfigService } from './config';
 import { AuthModule, JwtGuard } from './v1/auth';
+import { TaskModule } from './v1/task';
 import { UsersModule } from './v1/users';
 
 @Module({
@@ -29,6 +30,7 @@ import { UsersModule } from './v1/users';
     }),
     AuthModule,
     UsersModule,
+    TaskModule,
   ],
   providers: [
     ConfigService,

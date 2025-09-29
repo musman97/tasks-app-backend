@@ -9,8 +9,7 @@ import {
 import type { PromisfiedResponseDto } from 'src/common';
 import { Public, ResponseDto } from 'src/common';
 import { UserDto } from '../users';
-import { ERR_MESSAGE_USER_EXISTS } from '../users/users.constants';
-import { AuthRoutes } from './auth.constants';
+import { AuthRoutes, ERR_MESSAGE_USER_EXISTS } from './auth.constants';
 import { AuthService } from './auth.service';
 import { RegisterResponseData } from './auth.types';
 import { RegisterDto } from './dto/register.dto';

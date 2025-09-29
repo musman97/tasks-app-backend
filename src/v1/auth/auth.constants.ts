@@ -6,3 +6,4 @@ export const AuthRoutes = {
 
 export const JWT_EXPIRES_IN = '15m';
 export const JWT_REFRESH_EXPIRES_IN = '7d';
+export const ERR_MESSAGE_USER_EXISTS = 'User with this email already exists';

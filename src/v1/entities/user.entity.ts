@@ -6,6 +6,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export const UserRoles = {
+  user: 'user',
+  admin: 'admin',
+} as const;
+export type UserRole = (typeof UserRoles)[keyof typeof UserRoles];
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -22,6 +28,9 @@ export class User {
 
   @Column({ nullable: true, default: null })
   refreshToken: string;
+
+  @Column({ enum: [UserRoles.user, UserRoles.admin], default: UserRoles.user })
+  role: UserRole;
 
   @CreateDateColumn()
   createdAt: Date;

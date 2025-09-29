@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users';
 import { JwtPayload } from './auth.types';
 import { RegisterDto } from './dto';
-import { hashString } from 'src/common';
+import { bCryptHashStringWithSalt } from 'src/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from 'src/config';
 import { JWT_REFRESH_EXPIRES_IN } from './auth.constants';
@@ -24,7 +24,7 @@ export class AuthService {
       };
     }
 
-    const hashedPassword = await hashString(dto.password);
+    const hashedPassword = await bCryptHashStringWithSalt(dto.password);
     const userToCreate = {
       ...dto,
       password: hashedPassword,
@@ -42,7 +42,7 @@ export class AuthService {
       expiresIn: JWT_REFRESH_EXPIRES_IN,
     });
 
-    createdUser.refreshToken = await hashString(refreshToken);
+    createdUser.refreshToken = await bCryptHashStringWithSalt(refreshToken);
 
     await this.usersService.save(createdUser);
 

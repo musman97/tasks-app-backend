@@ -12,7 +12,7 @@ export const safeParseNumber = (value: any, fallbackValue = -1) => {
   }
 };
 
-export const hashString = async (str: string) => {
+export const bCryptHashStringWithSalt = async (str: string) => {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(str, salt);
 };

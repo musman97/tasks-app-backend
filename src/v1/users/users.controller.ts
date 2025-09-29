@@ -1,6 +1,6 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import type { PromisfiedPaginatedResponseDto } from 'src/common';
-import { PaginationDto } from 'src/common';
+import { PaginationDto, Role, RoleGuard } from 'src/common';
 import {
   createPaginationInfo,
   createPaginationMeta,
@@ -8,12 +8,14 @@ import {
   ResponseDto,
   safeParseNumber,
 } from 'src/common';
-import { User } from '../entities';
+import { User, UserRoles } from '../entities';
 import { UserDto } from './dto';
 import { UsersRoutes } from './users.constants';
 import { UsersService } from './users.service';
 import { UserDtos } from './users.types';
 
+@Role(UserRoles.admin)
+@UseGuards(RoleGuard)
 @Controller(UsersRoutes.base)
 export class UsersController {
   constructor(private readonly userService: UsersService) {}

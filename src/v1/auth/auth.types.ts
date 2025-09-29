@@ -6,8 +6,13 @@ export interface JwtPayload {
   sub: UserId;
 }
 
-export interface RegisterResponseData {
+export interface AuthResponseData {
   user: UserDto;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface RefreshTokensResponse {
   accessToken: string;
   refreshToken: string;
 }

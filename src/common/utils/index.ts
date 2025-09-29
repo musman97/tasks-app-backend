@@ -16,3 +16,6 @@ export const bCryptHashStringWithSalt = async (str: string) => {
   const salt = await bcrypt.genSalt(10);
   return bcrypt.hash(str, salt);
 };
+
+export const bCryptCompare = (str: string, hash: string) =>
+  bcrypt.compare(str, hash);

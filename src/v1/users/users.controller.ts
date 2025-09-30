@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import type { PromisfiedPaginatedResponseDto } from 'src/common';
-import { PaginationDto, Role, RoleGuard } from 'src/common';
+import { ID_PARAM, PaginationDto, Role, RoleGuard } from 'src/common';
 import {
   createPaginationInfo,
   createPaginationMeta,
@@ -41,9 +41,7 @@ export class UsersController {
   }
 
   @Get(UsersRoutes.byId)
-  async findOne(
-    @Param(UsersRoutes.byId) id: string,
-  ): Promise<ResponseDto<User>> {
+  async findOne(@Param(ID_PARAM) id: string): Promise<ResponseDto<User>> {
     const userRes = await this.userService.find(safeParseNumber(id));
 
     if (userRes === null) {

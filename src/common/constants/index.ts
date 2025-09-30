@@ -4,3 +4,4 @@ export const GLOBAL_API_PREFIX = 'api';
 export const VERSION_1 = '1';
 export const ALL_ROUTES_CAPTURE_WILDCARD = '*path';
 export const DEFAULT_REOURCE_LIMIT = 10;
+export const ID_PARAM = 'id';

@@ -20,3 +20,5 @@ export interface PaginationInfo {
 export interface AuthenticatedRequest extends Request {
   user: User;
 }
+
+export type Nullable<T> = T | null;

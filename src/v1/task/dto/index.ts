@@ -1,3 +1,3 @@
-export * from './createTaskDto';
+export * from './createTask.dto';
 export * from './task.dto';
-export * from './updateTaskDto';
+export * from './updateTask.dto';

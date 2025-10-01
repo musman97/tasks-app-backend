@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from './config';
 import { AuthModule, JwtGuard } from './v1/auth';
 import { TaskModule } from './v1/task';
 import { UsersModule } from './v1/users';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -21,8 +22,9 @@ import { UsersModule } from './v1/users';
           username: dbConfig.user,
           password: dbConfig.password,
           database: dbConfig.dbName,
-          entities: [__dirname + '/**/*.entity{.ts,.js}'],
-          synchronize: configService.nodeEnv !== 'production',
+          entities: [join(__dirname, '/**/*.entity.{ts,js}')],
+          migrations: [join(__dirname, 'migrations', '*.{ts,js}')],
+          synchronize: false,
           logging: configService.nodeEnv !== 'production',
         };
       },

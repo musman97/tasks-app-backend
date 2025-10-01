@@ -13,10 +13,8 @@ import {
 import {
   AuthenticatedUser,
   AuthenticatedUserId,
-  createPaginationInfo,
   createPaginationMeta,
   ID_PARAM,
-  PaginationDto,
   ResourceNotFoundException,
   Role,
   RoleGuard,
@@ -24,10 +22,10 @@ import {
   type PromisfiedResponseDto,
 } from 'src/common';
 import { User, UserRoles } from '../entities';
-import { CreateTaskDto, TaskDto, UpdateTaskDto } from './dto';
+import { type UserId } from '../users';
+import { CreateTaskDto, FilterTaskDto, TaskDto, UpdateTaskDto } from './dto';
 import { ERR_MESSAGE_NO_TASK_EXISTS, TaskRoutes } from './task.constants';
 import { TaskService } from './task.service';
-import { type UserId } from '../users';
 
 @UseGuards(RoleGuard)
 @Controller(TaskRoutes.base)
@@ -37,20 +35,15 @@ export class TaskController {
   @Get()
   @Role([UserRoles.admin, UserRoles.user])
   async getAll(
-    @Query() pagination: PaginationDto,
+    @Query() filters: FilterTaskDto,
     @AuthenticatedUser() user: User,
   ): PromisfiedPaginatedResponseDto<TaskDto[]> {
-    const { limit, page } = pagination;
-    const paginationInfo = createPaginationInfo(page, limit);
-
-    const [tasks, total] = await (user.role === UserRoles.admin
-      ? this.taskService.findAll(paginationInfo)
-      : this.taskService.findAllByUserId(user.id, paginationInfo));
+    const [tasks, total] = await this.taskService.findAll(filters, user);
 
     return {
       data: TaskDto.fromList(tasks),
       meta: {
-        pagination: createPaginationMeta(total, page, limit),
+        pagination: createPaginationMeta(total, filters.page, filters.limit),
       },
     };
   }

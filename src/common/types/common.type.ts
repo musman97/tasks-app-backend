@@ -22,3 +22,11 @@ export interface AuthenticatedRequest extends Request {
 }
 
 export type Nullable<T> = T | null;
+
+export type EnumType<T extends Record<string, unknown>> = T[keyof T];
+
+export const OrderBys = {
+  asc: 'ASC',
+  desc: 'DESC',
+} as const;
+export type OrderBy = EnumType<typeof OrderBys>;

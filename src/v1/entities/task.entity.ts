@@ -1,12 +1,13 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './user.entity';
+import { EnumType } from 'src/common';
 
 export const TaskStatuses = {
   pending: 'pending',
   inProgress: 'in_progress',
   completed: 'completed',
 } as const;
-export type TaskStatus = (typeof TaskStatuses)[keyof typeof TaskStatuses];
+export type TaskStatus = EnumType<typeof TaskStatuses>;
 
 @Entity()
 export class Task {

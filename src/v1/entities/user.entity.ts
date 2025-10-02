@@ -7,12 +7,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Task } from './task.entity';
+import { EnumType } from 'src/common';
 
 export const UserRoles = {
   user: 'user',
   admin: 'admin',
 } as const;
-export type UserRole = (typeof UserRoles)[keyof typeof UserRoles];
+export type UserRole = EnumType<typeof UserRoles>;
 
 @Entity()
 export class User {
@@ -31,7 +32,11 @@ export class User {
   @Column({ nullable: true, default: null })
   refreshToken: string;
 
-  @Column({ enum: [UserRoles.user, UserRoles.admin], default: UserRoles.user })
+  @Column({
+    type: 'enum',
+    enum: UserRoles,
+    default: UserRoles.user,
+  })
   role: UserRole;
 
   @CreateDateColumn()
